@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bank Marketing Predictor</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <main class="container">
+
+      <section class="hero card">
+        <div class="eyebrow">Regresión Logística · Inferencia</div>
+
+        <h1>Bank Marketing Predictor</h1>
+
+        <p>
+          Captura las características de un cliente y estima la probabilidad
+          de que contrate un depósito a plazo.
+          La predicción se ejecuta en la API, no en el frontend.
+        </p>
+
+        <div class="flow">
+          <span>Frontend</span>
+          <b>→</b>
+          <span>POST /predict</span>
+          <b>→</b>
+          <span>Pipeline</span>
+          <b>→</b>
+          <span>Modelo</span>
+          <b>→</b>
+          <span>Resultado</span>
+        </div>
+      </section>
+
+      <section class="grid">
+
+        <section class="card">
+          <h2>Estimar propensión</h2>
+
+          <form id="predict-form">
+
+            <label>
+              Edad
+              <input
+                type="number"
+                name="age"
+                min="18"
+                max="100"
+                value="41"
+                required
+              />
+            </label>
+
+            <label>
+              Ocupación
+              <select name="job" required>
+                <option value="technician">technician</option>
+                <option value="admin.">admin.</option>
+                <option value="blue-collar">blue-collar</option>
+                <option value="entrepreneur">entrepreneur</option>
+                <option value="housemaid">housemaid</option>
+                <option value="management">management</option>
+                <option value="retired">retired</option>
+                <option value="self-employed">self-employed</option>
+                <option value="services">services</option>
+                <option value="student">student</option>
+                <option value="unemployed">unemployed</option>
+                <option value="unknown">unknown</option>
+              </select>
+            </label>
+
+            <label>
+              Estado civil
+              <select name="marital" required>
+                <option value="married">married</option>
+                <option value="single">single</option>
+                <option value="divorced">divorced</option>
+                <option value="unknown">unknown</option>
+              </select>
+            </label>
+
+            <label>
+              Educación
+              <select name="education" required>
+                <option value="secondary">secondary</option>
+                <option value="primary">primary</option>
+                <option value="tertiary">tertiary</option>
+                <option value="unknown">unknown</option>
+              </select>
+            </label>
+
+            <label>
+              Balance anual promedio
+              <input
+                type="number"
+                name="balance"
+                step="0.01"
+                value="3200"
+                required
+              />
+            </label>
+
+            <label>
+              Crédito hipotecario
+              <select name="housing" required>
+                <option value="yes">Sí</option>
+                <option value="no">No</option>
+              </select>
+            </label>
+
+            <label>
+              Préstamo personal
+              <select name="loan" required>
+                <option value="no">No</option>
+                <option value="yes">Sí</option>
+              </select>
+            </label>
+
+            <label>
+              Contactos durante la campaña
+              <input
+                type="number"
+                name="campaign"
+                min="1"
+                max="100"
+                value="2"
+                required
+              />
+            </label>
+
+            <button type="submit">
+              Estimar propensión
+            </button>
+
+          </form>
+
+          <div id="result" class="result hidden"></div>
+        </section>
+
+        <aside class="card side-card">
+
+          <h2>Request enviado</h2>
+
+          <pre id="request-preview"><code>{
+  "age": 41,
+  "job": "technician",
+  "marital": "married",
+  "education": "secondary",
+  "balance": 3200,
+  "housing": "yes",
+  "loan": "no",
+  "campaign": 2
+}</code></pre>
+
+          <p class="mini-note">
+            La API valida tipos y rangos antes de ejecutar el pipeline persistido.
+          </p>
+
+          <h3>¿Qué significa la probabilidad?</h3>
+
+          <p>
+            Es la probabilidad estimada por el modelo para la clase
+            <strong>yes</strong>.
+            No es una certeza ni una garantía de contratación.
+          </p>
+
+        </aside>
+
+      </section>
+
+      <section class="card history-card">
+
+        <div class="section-header">
+          <h2>Últimas inferencias</h2>
+
+          <button
+            id="refresh-history"
+            type="button"
+            class="secondary-button"
+          >
+            Actualizar
+          </button>
+        </div>
+
+        <div id="history-empty" class="empty-state">
+          Aún no hay predicciones registradas.
+        </div>
+
+        <div class="table-wrap">
+
+          <table id="history-table" class="history-table hidden">
+
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Edad</th>
+                <th>Ocupación</th>
+                <th>Balance</th>
+                <th>Prob.</th>
+                <th>Predicción</th>
+              </tr>
+            </thead>
+
+            <tbody id="history-body"></tbody>
+
+          </table>
+
+        </div>
+
+      </section>
+
+    </main>
+
+<script src="/static/config.js"></script>
+<script src="/static/app.js"></script>
+  </body>
+</html>

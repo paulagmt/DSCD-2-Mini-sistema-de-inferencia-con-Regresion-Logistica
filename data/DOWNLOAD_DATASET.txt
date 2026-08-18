@@ -1,0 +1,20 @@
+DATASET: Bank Marketing - UCI Machine Learning Repository
+
+Fuente oficial:
+https://archive.ics.uci.edu/dataset/222/bank+marketing
+
+Descarga el archivo bank.zip desde UCI, descomprímelo y toma:
+
+    bank.csv
+
+Colócalo exactamente aquí:
+
+    data/bank.csv
+
+NO es necesario incluir duration en el modelo. El script training/train.py selecciona únicamente:
+
+    age, job, marital, education, balance, housing, loan, campaign, y
+
+Después ejecuta desde la raíz del proyecto:
+
+    python training/train.py

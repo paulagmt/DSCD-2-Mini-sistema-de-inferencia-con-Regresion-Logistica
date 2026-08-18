@@ -1,0 +1,8 @@
+[project]
+name = "bank-marketing-predictor"
+version = "1.0.0"
+description = "Mini sistema de inferencia con Regresion Logistica, FastAPI y frontend web"
+requires-python = ">=3.11,<3.14"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
